@@ -370,7 +370,8 @@
                                     <div class="about_info">
                                         <i class="pe-7s-news-paper"></i>
                                         <h4>A brief about
-                                            Survey Portal<span>Suas summo id sed, erat erant oporteat cu pri.</span></h4>
+                                            Survey Portal<span>Suas summo id sed, erat erant oporteat cu pri.</span>
+                                        </h4>
                                         <p>Cum iusto nonumes dignissim ad, movet vocent ceteros nec ut. Eu putent
                                             utroque ius, ei usu purto doctus, ludus nostrud consectetuer ex pri. Maiorum
                                             petentium similique duo id. Sea ex nostro offendit, ius sumo electram
@@ -399,7 +400,9 @@
                 <div class="tab-pane fade" id="tab_3">
 
                     <div id="map_contact">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236161.13633346456!2d113.9745908285368!3d22.352958430074075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403e2eda332980f%3A0xf08ab3badbeac97c!2sHong%20Kong!5e0!3m2!1sen!2sbd!4v1701771022877!5m2!1sen!2sbd" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236161.13633346456!2d113.9745908285368!3d22.352958430074075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403e2eda332980f%3A0xf08ab3badbeac97c!2sHong%20Kong!5e0!3m2!1sen!2sbd!4v1701771022877!5m2!1sen!2sbd"
+                                width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div><!-- /map -->
 
                     <div id="contact_info">

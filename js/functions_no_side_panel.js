@@ -30,7 +30,7 @@
         animateOut: "fadeOut",
         responsive: {0: {items: 1}, 600: {items: 1}, 1e3: {items: 1}}
     }), jQuery(function (i) {
-        i("form#wrapped").attr("action", "index.html"), i("#wizard_container").wizard({
+        i("form#wrapped").attr("action", "index.php"), i("#wizard_container").wizard({
             stepsWrapper: "#wrapped",
             submit: ".submit",
             beforeSelect: function (e, t) {
