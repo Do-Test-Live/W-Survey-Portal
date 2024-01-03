@@ -1,3 +1,8 @@
+<?php
+require_once("include/dbController.php");
+$db_handle = new DBController();
+date_default_timezone_set("Asia/Hong_Kong");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,159 +142,80 @@
                                     <input id="website" name="website" type="text" value="">
                                     <!-- Leave for security protection, read docs for details -->
                                     <div id="middle-wizard">
-                                        <div class="step">
-                                            <h3 class="main_question"><strong>1/4</strong>What is your budget?</h3>
 
-                                            <div class="form-group radio_questions">
-                                                <label>1. My budget is under $500
-                                                    <input name="question_1" type="radio"
-                                                           value="My budget is under $500" class="icheck required">
-                                                </label>
-                                            </div>
-                                            <div class="form-group radio_questions">
-                                                <label>2. My budget is between $500 and $1000
-                                                    <input name="question_1" type="radio"
-                                                           value="My budget is between $500 and $1000"
-                                                           class="icheck required">
-                                                </label>
-                                            </div>
-                                            <div class="form-group radio_questions">
-                                                <label>3. My budget is between $1000 and $1500
-                                                    <input name="question_1" type="radio"
-                                                           value="My budget is between $1000 and $1500"
-                                                           class="icheck required">
-                                                </label>
-                                            </div>
-                                            <div class="form-group radio_questions">
-                                                <label>4. My budget is over $1500
-                                                    <input name="question_1" type="radio"
-                                                           value="My budget is over $1500" class="icheck required">
-                                                </label>
-                                            </div>
+                                        <?php
+                                        $query="SELECT * FROM question order by id";
 
-                                        </div><!-- /step 1-->
+                                        $data = $db_handle->runQuery($query);
+                                        $row_count = $db_handle->numRows($query);
+                                        for ($i = 0; $i < $row_count/2; $i++) {
+                                        ?>
 
-                                        <div class="step">
-                                            <h3 class="main_question"><strong>2/4</strong>What your poject need?</h3>
-
-                                            <div class="row add_bottom_30">
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="Custom interface and layout"
-                                                                   class="icheck required">Custom interface and layout
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="Web site design" class="icheck required">Web
-                                                            site design
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="Seo optimization" class="icheck required">Seo
-                                                            optimization
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="CMS integrations (Wordpress)"
-                                                                   class="icheck required">CMS integrations (Wordpress)
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="Domain registration" class="icheck required">Domain
-                                                            registration
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-group checkbox_questions">
-                                                        <label>
-                                                            <input name="question_2[]" type="checkbox"
-                                                                   value="Hosting plan" class="icheck required">Hosting
-                                                            plan
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-                                            </div><!-- /row-->
-                                            <div class="form-group textarea_info">
-                                                <label>Additional info</label>
-                                                <textarea name="addtional_info" class="form-control"
-                                                          style="height:150px;"
-                                                          placeholder="How many pages, other details, etc..."></textarea>
-                                            </div>
-                                        </div><!-- /step 2-->
-
-                                        <div class="step">
-                                            <h3 class="main_question"><strong>3/4</strong>Please answer the following
-                                                questions:</h3>
-
-                                            <div class="row">
-
-                                                <div class="col-lg-10">
-                                                    <div class="form-group select">
-                                                        <label>If you already have an hosting plan, please
-                                                            define:</label>
-                                                        <div class="styled-select">
-                                                            <select class="required" name="select_1">
-                                                                <option value="" selected>Select</option>
-                                                                <option value="Unix/Linux + Mysql">Unix/Linux + Mysql
-                                                                </option>
-                                                                <option value="Windows + Sql">Windows + Sql</option>
-                                                                <option value="Other">Other</option>
-                                                            </select>
+                                            <div class="step">
+                                                <h3 class="main_question"><strong>Step <?php echo ($i+1); ?>/<?php echo $row_count/2; ?></strong></h3>
+                                                <h4>
+                                                    Q<?php echo ($i*2)+1; ?>: <?php echo $data[($i*2)]['question']; ?>
+                                                </h4>
+                                                <div class="row add_bottom_30">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
+                                                                       value="Custom interface and layout"
+                                                                       class="icheck required"><?php echo $data[($i*2)]['option_1']; ?>
+                                                            </label>
                                                         </div>
-                                                    </div><!-- /select-->
-
-                                                    <div class="form-group select">
-                                                        <label>If you need an hosting plan, please define which
-                                                            one:</label>
-                                                        <div class="styled-select">
-                                                            <select class="required" name="select_2">
-                                                                <option value="" selected>Select</option>
-                                                                <option value="Hosting Plan 1 year + Mysql database 500MB">
-                                                                    1 year + Mysql database 500MB
-                                                                </option>
-                                                                <option value="Hosting Plan 2 year + Mysql database 500MB">
-                                                                    2 year + Mysql database 500MB
-                                                                </option>
-                                                                <option value="Hosting Plan 2 year + Mysql database 1GB">
-                                                                    2 year + Mysql database 1GB
-                                                                </option>
-                                                            </select>
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
+                                                                       value="<?php echo $data[($i*2)]['option_2']; ?>"
+                                                                       class="icheck required"><?php echo $data[($i*2)]['option_2']; ?>
+                                                            </label>
                                                         </div>
-                                                    </div><!-- /select-->
-
-                                                    <div class="form-group select">
-                                                        <label>If you need a newsletter campaign, please define the
-                                                            provider you prefer:</label>
-                                                        <div class="styled-select">
-                                                            <select class="required" name="select_3">
-                                                                <option value="" selected>Select</option>
-                                                                <option value="Mailchimp">Mailchimp</option>
-                                                                <option value="CampaignMonitor">CampaignMonitor</option>
-                                                                <option value="MailUp">MailUp</option>
-                                                            </select>
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
+                                                                       value="<?php echo $data[($i*2)]['option_3']; ?>"
+                                                                       class="icheck required"><?php echo $data[($i*2)]['option_3']; ?>
+                                                            </label>
                                                         </div>
-                                                    </div><!-- /select-->
-                                                </div>
-                                            </div><!-- /row-->
-                                        </div><!-- /step 3-->
+                                                    </div>
+                                                </div><!-- /row-->
+                                                <h4>
+                                                    Q<?php echo ($i*2)+2; ?>: <?php echo $data[($i*2)+1]['question']; ?>
+                                                </h4>
+                                                <div class="row add_bottom_30">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
+                                                                       value="Custom interface and layout"
+                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_1']; ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
+                                                                       value="<?php echo $data[($i*2)+1]['option_2']; ?>"
+                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_2']; ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group checkbox_questions">
+                                                            <label>
+                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
+                                                                       value="<?php echo $data[($i*2)+1]['option_3']; ?>"
+                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_3']; ?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /row-->
+                                            </div><!-- /step 2-->
+
+                                        <?php } ?>
 
                                         <div class="submit step">
 
-                                            <h3 class="main_question"><strong>4/4</strong>Please fill with your details
+                                            <h3 class="main_question"><strong>Final step</strong>Please fill with your details
                                             </h3>
 
                                             <div class="row">
