@@ -92,8 +92,10 @@ date_default_timezone_set("Asia/Hong_Kong");
                                         <td><?php echo $data[$i]["survey_start"]; ?></td>
                                         <td><?php echo $data[$i]["survey_end"]; ?></td>
                                         <td class="text-center">
-                                            <a href="#<?php echo $data[$i]["id"]; ?>"
-                                               class="btn btn-info">View</a>
+                                            <button onclick="showAnswer(<?php echo $data[$i]["id"]; ?>);"
+                                                    class="btn btn-info" data-toggle="modal"
+                                                    data-target=".bd-example-modal-lg">View
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -142,8 +144,65 @@ date_default_timezone_set("Asia/Hong_Kong");
     </div>
 </div>
 
+
+<!-- Result Modal-->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="surveyInfo">Answers</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped text-center" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <td>
+                                SL
+                            </td>
+                            <td>
+                                Question
+                            </td>
+                            <td>
+                                Answer
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody id="result">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require_once 'include/js.php'; ?>
 
+
+<script>
+    async function showAnswer(id) {
+        $.ajax({
+            type: "POST",
+            url: "view-answers.php",
+            data: {survey_id: id},
+            success:async function(msg){
+                $("#result").html(msg)
+            },
+            error: function(){
+                alert("failure");
+            }
+        });
+    }
+</script>
 </body>
 
 </html>
