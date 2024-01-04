@@ -15,7 +15,7 @@ if (isset($_SESSION['userid'])) {
     <meta name="author" content="">
 
     <title>Login - Survey Portal</title>
-
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
