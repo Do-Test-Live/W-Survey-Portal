@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Survey question List - Survey Portal</title>
+    <title>Survey Question List - Survey Portal</title>
 
     <?php require_once 'include/css.php'; ?>
 

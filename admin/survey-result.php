@@ -15,7 +15,7 @@ date_default_timezone_set("Asia/Hong_Kong");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Survey question List - Survey Portal</title>
+    <title>Survey Result List - Survey Portal</title>
 
     <?php require_once 'include/css.php'; ?>
 
