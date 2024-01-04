@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("include/dbController.php");
 $db_handle = new DBController();
 date_default_timezone_set("Asia/Hong_Kong");
@@ -48,7 +49,7 @@ date_default_timezone_set("Asia/Hong_Kong");
 
 <header>
     <div id="logo_home">
-        <h1><a href="index.html" title="Quote">Survey Portal</a></h1>
+        <h1><a href="index.html" title="Survey">Survey Portal</a></h1>
     </div>
 
     <a id="menu-button-mobile" class="cmn-toggle-switch cmn-toggle-switch__htx" href="javascript:void(0);"><span>Menu mobile</span></a>
@@ -57,6 +58,12 @@ date_default_timezone_set("Asia/Hong_Kong");
             <li><a href="#tab_1" data-bs-toggle="tab">Request a Survey</a></li>
             <li><a href="#tab_2" data-bs-toggle="tab">About</a></li>
             <li><a href="#tab_3" data-bs-toggle="tab">Contact</a></li>
+            <?php if (isset($_SESSION['userid'])) {
+                ?>
+                <li><a href="logout">Logout</a></li>
+                <?php
+            }
+            ?>
         </ul>
     </nav>
 </header><!-- /header -->
@@ -68,7 +75,7 @@ date_default_timezone_set("Asia/Hong_Kong");
         <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:800;offsetxout:-100;durationout:1000;"><strong>SURVEY
-            PORTAL</strong></p>
+                PORTAL</strong></p>
         <p style="font-size:52px; color:#fff;top:55%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:1500;offsetxout:-100;durationout:1000;">for every type of
@@ -81,7 +88,7 @@ date_default_timezone_set("Asia/Hong_Kong");
         <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:800;offsetxout:-100;durationout:1000;"><strong>SURVEY
-            PORTAL</strong>
+                PORTAL</strong>
         </p>
         <p style="font-size:52px; color:#fff;top:55%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
@@ -95,7 +102,7 @@ date_default_timezone_set("Asia/Hong_Kong");
         <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:800;offsetxout:-100;durationout:1000;"><strong>SURVEY
-            PORTAL</strong></p>
+                PORTAL</strong></p>
         <p style="font-size:52px; color:#fff;top:55%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:1500;offsetxout:-100;durationout:1000;">ask questions to your
@@ -132,152 +139,168 @@ date_default_timezone_set("Asia/Hong_Kong");
                         </aside><!-- /aside -->
 
                         <div class="col-xl-9 col-lg-8">
-                            <div id="wizard_container">
-                                <div id="top-wizard">
-                                    <strong>Progress</strong>
-                                    <div id="progressbar"></div>
-                                </div><!-- /top-wizard -->
+                            <?php if (isset($_SESSION['userid'])) {
+                                ?>
+                                <div id="wizard_container">
+                                    <div id="top-wizard">
+                                        <strong>Progress</strong>
+                                        <div id="progressbar"></div>
+                                    </div><!-- /top-wizard -->
 
-                                <form name="example-1" id="wrapped" action="" method="POST">
-                                    <input id="website" name="website" type="text" value="">
-                                    <!-- Leave for security protection, read docs for details -->
-                                    <div id="middle-wizard">
+                                    <form name="example-1" id="wrapped" action="" method="POST">
+                                        <input id="time" name="time" type="hidden" value="<?php echo date('h:i:s'); ?>">
+                                        <input id="website" name="website" type="text" value="">
+                                        <!-- Leave for security protection, read docs for details -->
+                                        <div id="middle-wizard">
 
-                                        <?php
-                                        $query="SELECT * FROM question order by id";
+                                            <?php
+                                            $query = "SELECT * FROM question order by id";
 
-                                        $data = $db_handle->runQuery($query);
-                                        $row_count = $db_handle->numRows($query);
-                                        for ($i = 0; $i < $row_count/2; $i++) {
-                                        ?>
+                                            $data = $db_handle->runQuery($query);
+                                            $row_count = $db_handle->numRows($query);
+                                            for ($i = 0; $i < $row_count / 2; $i++) {
+                                                ?>
 
-                                            <div class="step">
-                                                <h3 class="main_question"><strong>Step <?php echo ($i+1); ?>/<?php echo $row_count/2; ?></strong></h3>
-                                                <h4>
-                                                    Q<?php echo ($i*2)+1; ?>: <?php echo $data[($i*2)]['question']; ?>
-                                                </h4>
-                                                <div class="row add_bottom_30">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
-                                                                       value="Custom interface and layout"
-                                                                       class="icheck required"><?php echo $data[($i*2)]['option_1']; ?>
-                                                            </label>
+                                                <div class="step">
+                                                    <h3 class="main_question"><strong>Step <?php echo($i + 1); ?>
+                                                            /<?php echo $row_count / 2; ?></strong></h3>
+                                                    <h4>
+                                                        Q<?php echo ($i * 2) + 1; ?>
+                                                        : <?php echo $data[($i * 2)]['question']; ?>
+                                                    </h4>
+                                                    <div class="row add_bottom_30">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 1; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="Custom interface and layout"
+                                                                           class="icheck required"><?php echo $data[($i * 2)]['option_1']; ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 1; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="<?php echo $data[($i * 2)]['option_2']; ?>"
+                                                                           class="icheck required"><?php echo $data[($i * 2)]['option_2']; ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 1; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="<?php echo $data[($i * 2)]['option_3']; ?>"
+                                                                           class="icheck required"><?php echo $data[($i * 2)]['option_3']; ?>
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
-                                                                       value="<?php echo $data[($i*2)]['option_2']; ?>"
-                                                                       class="icheck required"><?php echo $data[($i*2)]['option_2']; ?>
-                                                            </label>
+                                                    </div><!-- /row-->
+                                                    <h4>
+                                                        Q<?php echo ($i * 2) + 2; ?>
+                                                        : <?php echo $data[($i * 2) + 1]['question']; ?>
+                                                    </h4>
+                                                    <div class="row add_bottom_30">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 2; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="Custom interface and layout"
+                                                                           class="icheck required"><?php echo $data[($i * 2) + 1]['option_1']; ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 2; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="<?php echo $data[($i * 2) + 1]['option_2']; ?>"
+                                                                           class="icheck required"><?php echo $data[($i * 2) + 1]['option_2']; ?>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group checkbox_questions">
+                                                                <label>
+                                                                    <input name="question_<?php echo ($i * 2) + 2; ?>[]"
+                                                                           type="checkbox"
+                                                                           value="<?php echo $data[($i * 2) + 1]['option_3']; ?>"
+                                                                           class="icheck required"><?php echo $data[($i * 2) + 1]['option_3']; ?>
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+1; ?>[]" type="checkbox"
-                                                                       value="<?php echo $data[($i*2)]['option_3']; ?>"
-                                                                       class="icheck required"><?php echo $data[($i*2)]['option_3']; ?>
-                                                            </label>
+                                                    </div><!-- /row-->
+                                                </div><!-- /step 2-->
+
+                                            <?php } ?>
+
+                                            <div class="submit step">
+
+                                                <h3 class="main_question"><strong>Final step</strong>Please fill with
+                                                    your
+                                                    details
+                                                </h3>
+
+                                                <div class="row">
+
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <input type="text" name="name"
+                                                                   class="required form-control"
+                                                                   placeholder="First name" value="<?php echo $_SESSION['name']; ?>">
                                                         </div>
-                                                    </div>
-                                                </div><!-- /row-->
-                                                <h4>
-                                                    Q<?php echo ($i*2)+2; ?>: <?php echo $data[($i*2)+1]['question']; ?>
-                                                </h4>
-                                                <div class="row add_bottom_30">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
-                                                                       value="Custom interface and layout"
-                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_1']; ?>
-                                                            </label>
+                                                        <div class="form-group">
+                                                            <input type="email" name="email"
+                                                                   class="required form-control"
+                                                                   placeholder="Email" value="<?php echo $_SESSION['email']; ?>">
                                                         </div>
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
-                                                                       value="<?php echo $data[($i*2)+1]['option_2']; ?>"
-                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_2']; ?>
-                                                            </label>
+                                                        <div class="form-group">
+                                                            <input type="text" name="contact_number"
+                                                                   class="required form-control"
+                                                                   placeholder="Your Telephone" value="<?php echo $_SESSION['contact_number']; ?>">
                                                         </div>
-                                                        <div class="form-group checkbox_questions">
-                                                            <label>
-                                                                <input name="question_<?php echo ($i*2)+2; ?>[]" type="checkbox"
-                                                                       value="<?php echo $data[($i*2)+1]['option_3']; ?>"
-                                                                       class="icheck required"><?php echo $data[($i*2)+1]['option_3']; ?>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- /row-->
-                                            </div><!-- /step 2-->
+                                                    </div><!-- /col-12 -->
+                                                </div><!-- /row -->
 
-                                        <?php } ?>
+                                                <div class="form-group checkbox_questions">
+                                                    <input name="terms" type="checkbox" class="icheck required"
+                                                           value="yes">
+                                                    <label>Please accept <a href="#" data-bs-toggle="modal"
+                                                                            data-bs-target="#terms-txt">terms and
+                                                            conditions</a> ?
+                                                    </label>
+                                                </div>
 
-                                        <div class="submit step">
+                                            </div><!-- /step 4-->
 
-                                            <h3 class="main_question"><strong>Final step</strong>Please fill with your details
-                                            </h3>
-
-                                            <div class="row">
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="company_name" class="form-control"
-                                                               placeholder="Your company name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="firstname"
-                                                               class="required form-control" placeholder="First name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="lastname" class="required form-control"
-                                                               placeholder="Last name">
-                                                    </div>
-                                                </div><!-- /col-sm-6 -->
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input type="email" name="email" class="required form-control"
-                                                               placeholder="Your Email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="telephone"
-                                                               class="required form-control"
-                                                               placeholder="Your Telephone">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="styled-select">
-                                                            <select class="required" name="country">
-                                                                <option value="" selected>Select your country</option>
-                                                                <option value="Europe">Europe</option>
-                                                                <option value="Asia">Asia</option>
-                                                                <option value="North America">North America</option>
-                                                                <option value="South America">South America</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- /col-sm-6 -->
-                                            </div><!-- /row -->
-
-                                            <div class="form-group checkbox_questions">
-                                                <input name="terms" type="checkbox" class="icheck required" value="yes">
-                                                <label>Please accept <a href="#" data-bs-toggle="modal"
-                                                                        data-bs-target="#terms-txt">terms and
-                                                    conditions</a> ?
-                                                </label>
-                                            </div>
-
-                                        </div><!-- /step 4-->
-
-                                    </div><!-- /middle-wizard -->
-                                    <div id="bottom-wizard">
-                                        <button type="button" name="backward" class="backward">Backward</button>
-                                        <button type="button" name="forward" class="forward">Forward</button>
-                                        <button type="submit" name="process" class="submit">Submit</button>
-                                    </div><!-- /bottom-wizard -->
-                                </form>
-                            </div><!-- /Wizard container -->
-
+                                        </div><!-- /middle-wizard -->
+                                        <div id="bottom-wizard">
+                                            <button type="button" name="backward" class="backward">Backward</button>
+                                            <button type="button" name="forward" class="forward">Forward</button>
+                                            <button type="submit" name="process" class="submit">Submit</button>
+                                        </div><!-- /bottom-wizard -->
+                                    </form>
+                                </div><!-- /Wizard container -->
+                                <?php
+                            } else {
+                                ?>
+                                <div class="card p-4">
+                                    <h4 class="text-center">Login</h4>
+                                    <form action="" method="post">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" class="form-control" id="email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" class="form-control" id="password"
+                                                   required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-dark" type="submit" name="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <?php
+                            } ?>
                         </div><!-- /col -->
                     </div><!-- /row -->
                 </div><!-- /TAB 1:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
@@ -437,6 +460,66 @@ date_default_timezone_set("Asia/Hong_Kong");
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC-JeyaCifXWDrHeMVZZq4B3ZhB6SBHVPI"></script>
 <script src="js/mapmarker.jquery.js"></script>
 <script src="js/mapmarker_func.jquery.js"></script>
+<?php
+if (isset($_POST['submit'])) {
+    $email = $db_handle->checkValue($_POST['email']);
+    $password = $db_handle->checkValue($_POST['password']);
 
+    $query = "SELECT * FROM `user` WHERE email='$email' and password='$password'";
+
+    $data = $db_handle->runQuery($query);
+    $row = $db_handle->numRows($query);
+
+    if ($row > 0) {
+        $_SESSION['userid'] = $data[0]['id'];
+        $_SESSION['name'] = $data[0]['name'];
+        $_SESSION['email'] = $data[0]['email'];
+        $_SESSION['contact_number'] = $data[0]['contact_number'];
+
+        echo "<script>
+                alert('Login Successful');
+                window.location.href='index.php';
+                </script>";
+    } else {
+        echo "<script>
+                alert('Data not found');
+                window.location.href='index.php';
+                </script>";
+    }
+}
+
+if (isset($_POST['process'])) {
+    $user_id=$_SESSION['userid'];
+    $startTime = $db_handle->checkValue($_POST['time']);
+    $endTime = date('h:i:s');
+    $name = $db_handle->checkValue($_POST['name']);
+    $email = $db_handle->checkValue($_POST['email']);
+    $phone_number = $db_handle->checkValue($_POST['contact_number']);
+
+    $surveyTakenDate = date('Y-m-d');
+    $inserted_at = date('Y-m-d h:i:s');
+
+    $insert=$db_handle->insertQuery("INSERT INTO `survey_result`(`user_id`, `name`, `email`, `contact_number`, `survey_taken_date`, `survey_start`, `survey_end`, `inserted_at`) VALUES ('$user_id','$name','$email','$phone_number','$surveyTakenDate','$startTime','$endTime','$inserted_at')");
+
+    $selectData=$db_handle->runQuery("SELECT `id` FROM `survey_result` order by id desc limit 1");
+    $survey_id=$selectData[0]['id'];
+
+    $query = "SELECT * FROM question order by id";
+
+    $data = $db_handle->runQuery($query);
+    $row_count = $db_handle->numRows($query);
+
+    for ($i = 0; $i < $row_count; $i++) {
+        $index = $i + 1;
+        $answer = json_encode($_POST['question_' . $index]);
+        $question_id=$data[$i]['id'];
+        $insert=$db_handle->insertQuery("INSERT INTO `answer`(`user_id`, `survey_id`, `question_id`, `answer`) VALUES ('$user_id','$survey_id','$question_id','$answer')");
+    }
+  echo "<script>
+                alert('Survey answer Submitted');
+                window.location.href='index.php';
+                </script>";
+}
+?>
 </body>
 </html>
