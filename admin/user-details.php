@@ -2,36 +2,24 @@
 session_start();
 include('../include/dbController.php');
 $db_handle = new DBController();
+date_default_timezone_set("Asia/Hong_Kong");
 
 if (isset($_POST['submit'])) {
     $id = $db_handle->checkValue($_POST['id']);
-    $activities_name = $db_handle->checkValue($_POST['activities_name']);
+    $name = $db_handle->checkValue($_POST['name']);
+    $email = $db_handle->checkValue($_POST['email']);
+    $contact_number = $db_handle->checkValue($_POST['contact_number']);
+    $password = $db_handle->checkValue($_POST['password']);
 
-    $sound = '';
-    if (!empty($_FILES['sound']['name'])) {
-        $file_name = $_FILES['sound']['name'];
-        $file_size = $_FILES['sound']['size'];
-        $file_tmp = $_FILES['sound']['tmp_name'];
 
-        $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-
-        move_uploaded_file($file_tmp, "../assets/audio/" . $file_name);
-        $sound = "assets/audio/" . $file_name;
-
-    }
-
-    if($sound!=''){
-        $insert_user = $db_handle->insertQuery("UPDATE `sound_list` SET `name`='$activities_name',`sound_name`='$sound' WHERE id={$id}");
-    }else{
-        $insert_user = $db_handle->insertQuery("UPDATE `extra_activities` SET `name`='$activities_name' WHERE id={$id}");
-    }
+    $insert_user = $db_handle->insertQuery("UPDATE `user` SET `name`='$name',`email`='$email',`contact_number`='$contact_number',`password`='$password' WHERE id={$id}");
 
 
     if ($insert_user) {
         ?>
         <script>
-            alert('Activities Updated');
-            window.location.href = "activities.php";
+            alert('User Details Updated');
+            window.location.href = "user-details.php";
         </script>
         <?php
     }
@@ -77,12 +65,12 @@ if (isset($_POST['submit'])) {
 
                 <!-- DataTales Example -->
                 <?php
-                if (isset($_GET['activities_id'])) {
+                if (isset($_GET['user_id'])) {
 
-                    $data = $db_handle->runQuery("SELECT * FROM extra_activities where id={$_GET['activities_id']}");
+                    $data = $db_handle->runQuery("SELECT * FROM user where id={$_GET['user_id']}");
 
                     ?>
-                    <h1 class="h3 mb-2 text-gray-800">Edit activities Data</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Edit user Data</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -92,26 +80,29 @@ if (isset($_POST['submit'])) {
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <form action="" method="post" enctype="multipart/form-data">
                                             <div class="form-group">
-                                                <label>Activities Name</label>
-                                                <input type="text" class="form-control" name="activities_name" value="<?php echo $data[0]['name']; ?>" required>
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                       value="<?php echo $data[0]['name']; ?>" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Sound</label>
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text">Upload</label>
-                                                    <input type="file" class="form-control" name="sound" accept=".wav"
-                                                           required>
-                                                </div>
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                       value="<?php echo $data[0]['email']; ?>" required>
                                             </div>
                                             <div class="form-group">
-                                                <audio controls>
-                                                    <source src="../<?php echo $data[0]['sound_name']; ?>"
-                                                            type="audio/wav">
-                                                    Your browser does not support the audio element.
-                                                </audio>
+                                                <label>Option 2</label>
+                                                <input type="text" class="form-control" name="contact_number"
+                                                       value="<?php echo $data[0]['contact_number']; ?>" required>
                                             </div>
-                                            <input type="hidden" value="<?php echo $data[0]['id']; ?>" name="id" required/>
-                                            <button type="submit" name="submit" class="btn btn-primary mt-3">Update Activities
+                                            <div class="form-group">
+                                                <label>Option 3</label>
+                                                <input type="text" class="form-control" name="password"
+                                                       value="<?php echo $data[0]['password']; ?>" required>
+                                            </div>
+                                            <input type="hidden" value="<?php echo $data[0]['id']; ?>" name="id"
+                                                   required/>
+                                            <button type="submit" name="submit" class="btn btn-primary mt-3">Update
+                                                User
                                             </button>
                                         </form>
                                     </div>
@@ -122,11 +113,11 @@ if (isset($_POST['submit'])) {
                     <?php
                 } else {
                     ?>
-                    <h1 class="h3 mb-2 text-gray-800">Extra activities Data</h1>
+                    <h1 class="h3 mb-2 text-gray-800">User Data</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Extra activities</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -134,37 +125,38 @@ if (isset($_POST['submit'])) {
                                     <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Extra activities Name</th>
-                                        <th class="text-center">Sound</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact Number</th>
+                                        <th>Password</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Extra activities Name</th>
-                                        <th class="text-center">Sound</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact Number</th>
+                                        <th>Password</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     <?php
-                                    $data = $db_handle->runQuery("SELECT * FROM extra_activities order by id asc");
-                                    $row_count = $db_handle->numRows("SELECT * FROM extra_activities order by id asc");
+                                    $query = "SELECT * FROM user order by id";
+                                    $data = $db_handle->runQuery($query);
+                                    $row_count = $db_handle->numRows($query);
                                     for ($i = 0; $i < $row_count; $i++) {
                                         ?>
                                         <tr>
                                             <td><?php echo $i + 1; ?></td>
                                             <td><?php echo $data[$i]["name"]; ?></td>
+                                            <td><?php echo $data[$i]["email"]; ?></td>
+                                            <td><?php echo $data[$i]["contact_number"]; ?></td>
+                                            <td><?php echo $data[$i]["password"]; ?></td>
                                             <td class="text-center">
-                                                <audio controls>
-                                                    <source src="../<?php echo $data[$i]["sound_name"]; ?>"
-                                                            type="audio/wav">
-                                                    Your browser does not support the audio element.
-                                                </audio>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="activities.php?activities_id=<?php echo $data[$i]["id"]; ?>"
+                                                <a href="user-details.php?user_id=<?php echo $data[$i]["id"]; ?>"
                                                    class="btn btn-primary">Edit</a>
                                             </td>
                                         </tr>

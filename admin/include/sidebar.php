@@ -29,23 +29,21 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-           aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link" href="survey-question.php">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Data</span>
+            <span>Survey Question</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Data:</h6>
-                <a class="collapse-item" href="soundlist.php">Class Data</a>
-                <a class="collapse-item" href="activities.php">Extra Activities Data</a>
-            </div>
-        </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="play-sound.php">
+        <a class="nav-link" href="survey-result.php">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Play Sound</span>
+            <span>Survey Result</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="user-details.php">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>User Details</span>
         </a>
     </li>
 
