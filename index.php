@@ -496,7 +496,7 @@ if (isset($_POST['process'])) {
     $email = $db_handle->checkValue($_POST['email']);
     $phone_number = $db_handle->checkValue($_POST['contact_number']);
 
-    $surveyTakenDate = date('Y-m-d');
+    $surveyTakenDate = date('Y-m-d h:i:s');
     $inserted_at = date('Y-m-d h:i:s');
 
     $insert=$db_handle->insertQuery("INSERT INTO `survey_result`(`user_id`, `name`, `email`, `contact_number`, `survey_taken_date`, `survey_start`, `survey_end`, `inserted_at`) VALUES ('$user_id','$name','$email','$phone_number','$surveyTakenDate','$startTime','$endTime','$inserted_at')");

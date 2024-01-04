@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2024 at 11:30 AM
+-- Generation Time: Jan 04, 2024 at 01:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -52,6 +52,7 @@ INSERT INTO `admin` (`id`, `name`, `email`, `password`, `image`, `inserted_at`) 
 CREATE TABLE `answer` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
   `answer` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -123,6 +124,9 @@ INSERT INTO `settings` (`id`, `survey_max_end_time`, `time`, `inserted_at`, `upd
 CREATE TABLE `survey_result` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `contact_number` varchar(100) NOT NULL,
   `survey_taken_date` datetime NOT NULL,
   `survey_start` time NOT NULL,
   `survey_end` time NOT NULL,
@@ -139,6 +143,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `contact_number` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `image` text NOT NULL,
   `inserted_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -149,8 +154,27 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `image`, `inserted_at`, `updated_at`) VALUES
-(1, 'User 1', 'user1@survey.com', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29');
+INSERT INTO `user` (`id`, `name`, `email`, `contact_number`, `password`, `image`, `inserted_at`, `updated_at`) VALUES
+(1, 'User 1', 'user1@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(2, 'User 2', 'user2@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(3, 'User 3', 'user3@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(4, 'User 4', 'user4@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(5, 'User 5', 'user5@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(6, 'User 6', 'user6@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(7, 'User 7', 'user7@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(8, 'User 8', 'user8@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(9, 'User 9', 'user9@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(10, 'User 10', 'user10@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(11, 'User 11', 'user11@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(12, 'User 12', 'user12@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(13, 'User 13', 'user13@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(14, 'User 14', 'user14@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(15, 'User 15', 'user15@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(16, 'User 16', 'user16@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(17, 'User 17', 'user17@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(18, 'User 18', 'user18@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(19, 'User 19', 'user19@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29'),
+(20, 'User 20', 'user20@survey.com', '8526598789', '@BCD1234', '', '2024-01-03 16:22:29', '2024-01-03 16:22:29');
 
 --
 -- Indexes for dumped tables
@@ -230,7 +254,7 @@ ALTER TABLE `survey_result`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
