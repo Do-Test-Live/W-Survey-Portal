@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../Controller/dbController.php');
+include('../include/dbController.php');
 $db_handle = new DBController();
 
 if (isset($_GET['sound_id'])) {

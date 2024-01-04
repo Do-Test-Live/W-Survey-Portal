@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../Controller/dbController.php');
+include('../include/dbController.php');
 $db_handle = new DBController();
 $delete = $db_handle->insertQuery("TRUNCATE TABLE `sound`");
 date_default_timezone_set("Asia/Hong_Kong");
