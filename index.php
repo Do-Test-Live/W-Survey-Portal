@@ -56,8 +56,6 @@ date_default_timezone_set("Asia/Hong_Kong");
     <nav class="main_nav">
         <ul class="nav nav-tabs">
             <li><a href="#tab_1" data-bs-toggle="tab">Request a Survey</a></li>
-            <li><a href="#tab_2" data-bs-toggle="tab">About</a></li>
-            <li><a href="#tab_3" data-bs-toggle="tab">Contact</a></li>
             <?php if (isset($_SESSION['userid'])) {
                 ?>
                 <li><a href="logout">Logout</a></li>
@@ -72,18 +70,16 @@ date_default_timezone_set("Asia/Hong_Kong");
     <!-- First slide -->
     <div class="ls-slide" data-ls="duration: 8000; transition2d: 5;bgsize:cover;bgposition:50% 50%;kenburnszoom:in;">
         <img src="img/slides/slide_1.jpg" class="ls-bg" alt="Slide background">
-        <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
+        <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding:5px 50px; border-radius: 15px; letter-spacing:-1px;background: #0062b9ba;"
            class="ls-l sliderleft"
-           data-ls="offsetxin:-100;durationin:2000;delayin:800;offsetxout:-100;durationout:1000;"><strong>SURVEY
-                PORTAL</strong></p>
-        <p style="font-size:52px; color:#fff;top:55%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
-           class="ls-l sliderleft"
-           data-ls="offsetxin:-100;durationin:2000;delayin:1500;offsetxout:-100;durationout:1000;">for every type of
-            companies</p>
+           data-ls="offsetxin:-100;durationin:2000;delayin:800;offsetxout:-100;durationout:1000;"><strong>
+                BALANCE BETWEEN<br/>
+                PROTEIN AND FLUID IN PN
+            </strong></p>
     </div>
 
     <!-- Second slide -->
-    <div class="ls-slide" data-ls="duration: 8000; transition2d: 5;bgsize:cover;bgposition:50% 50%;kenburnszoom:in;">
+    <!--<div class="ls-slide" data-ls="duration: 8000; transition2d: 5;bgsize:cover;bgposition:50% 50%;kenburnszoom:in;">
         <img src="img/slides/slide_2.jpg" class="ls-bg" alt="Slide background">
         <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
@@ -94,10 +90,10 @@ date_default_timezone_set("Asia/Hong_Kong");
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:1500;offsetxout:-100;durationout:1000;">new customers and
             contacts</p>
-    </div>
+    </div>-->
 
     <!-- Third slide -->
-    <div class="ls-slide" data-ls="duration: 8000; transition2d: 5;bgsize:cover;bgposition:50% 50%;kenburnszoom:in;">
+<!--    <div class="ls-slide" data-ls="duration: 8000; transition2d: 5;bgsize:cover;bgposition:50% 50%;kenburnszoom:in;">
         <img src="img/slides/slide_3.jpg" class="ls-bg" alt="Slide background">
         <p style="font-size:72px; color:#fff;top:46%; left:0px;line-height:1;text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.60); padding-left:50px; letter-spacing:-1px;"
            class="ls-l sliderleft"
@@ -107,7 +103,7 @@ date_default_timezone_set("Asia/Hong_Kong");
            class="ls-l sliderleft"
            data-ls="offsetxin:-100;durationin:2000;delayin:1500;offsetxout:-100;durationout:1000;">ask questions to your
             customers</p>
-    </div>
+    </div>-->
 
 </div><!-- /layerslider -->
 
@@ -126,17 +122,6 @@ date_default_timezone_set("Asia/Hong_Kong");
                 <div class="tab-pane fade" id="tab_1">
                     <div class="subheader" id="quote"></div>
                     <div class="row">
-                        <aside class="col-xl-3 col-lg-4">
-                            <h2>Request a Survey and Compare prices!</h2>
-                            <p class="lead">An mei sadipscing dissentiet, eos ea partem viderer facilisi.</p>
-                            <ul class="list_ok">
-                                <li>Delicata persecuti ei nec, et his minim omnium, aperiam placerat ea vis.</li>
-                                <li>Suavitate vituperatoribus pro ad, cum in quis propriae abhorreant.</li>
-                                <li>Aperiri deterruisset ei mea, sed cu laudem intellegat, eu mutat iuvaret voluptatum
-                                    mei.
-                                </li>
-                            </ul>
-                        </aside><!-- /aside -->
 
                         <div class="col-xl-9 col-lg-8">
                             <?php if (isset($_SESSION['userid'])) {

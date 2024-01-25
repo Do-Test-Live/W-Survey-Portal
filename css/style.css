@@ -476,7 +476,7 @@ footer ul li:first-child {
     margin: 0;
     padding: 0;
     list-style: none;
-    color: #fff
+    color: #000000
 }
 
 #additional_links ul li {
@@ -616,7 +616,7 @@ footer ul li:first-child {
 }
 
 .subheader#quote {
-    background: #fff4e3 url(../img/quote_bg.svg) no-repeat center bottom
+    background: #014e95 url(../img/quote_bg.svg) no-repeat center bottom
 }
 
 .subheader#services {
